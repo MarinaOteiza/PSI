@@ -14,8 +14,6 @@ public class LlistaUser {
         nElem = 0;
         llista = new User[elem];
     }
-
-
     public void nuevoUsr(User u){
         if(nElem==0) {
             llista[nElem]=u.copia();

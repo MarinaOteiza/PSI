@@ -1,4 +1,4 @@
-package Productes;
+package Peticiones;
 
 public class LlistaServei extends Peticiones {
     private Servei LlistaS[];
