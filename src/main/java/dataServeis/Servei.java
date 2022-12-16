@@ -33,7 +33,7 @@ public class Servei {
      *
      * @return estat
      */
-    public boolean getEstat(boolean estat) {
+    public boolean getEstat( ) {
         return estat;
     }
 
@@ -42,8 +42,7 @@ public class Servei {
      * @return duplicado de la instancia de Servei
      */
     public Servei copia() {
-        Servei aux=new Servei(dataFi, titol,estat,intercanvis);
-        return aux;
+        return (new Servei(dataFi, titol,estat,intercanvis));
     }
 
     /** Método que muestra Serevi
@@ -53,12 +52,27 @@ public class Servei {
     public String toString() {
         return "Servei [dataFi=" + dataFi + ", titol=" + titol+ ", activacio=" +estat+ ", intercanvis=" +intercanvis;
     }
-
+    /** Mètode que desactiva un servei
+     *
+     */
     public void desactivaServei( ) {
         estat=false;
     }
-
-
+    /** Mètode que canvia la data final del servei
+     *
+     * @param data2 conté la data final
+     */
+    public void canviaData (Data data2 ){
+        dataFi=data2;
+    }
+    /** Método que comprueba si el servicio tiene ese titulo
+     *
+     * @param titol contiene el titulo
+     * @return true (se ha encontrado el titulo) o false(no se ha encontrado el titulo)
+     */
+    public boolean esTrobaEnAquestTitol(String titol) {
+        return this.titol.equalsIgnoreCase(titol);
+    }
 
 
 }
