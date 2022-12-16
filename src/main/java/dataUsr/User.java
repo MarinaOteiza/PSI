@@ -5,7 +5,7 @@ package dataUsr;
  * @author Marina Oteiza
  *
  */
-public class User {
+public class User{
     private String alias, correo;
     private String[] prod, intercamb;
     private int codiPost, nProd, nInter;

@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class RegUser{
     static Scanner teclat = new Scanner(System.in);
     public static void main(String[] args){
-        int opcion=10;
+        int opcion=10; //hay que iniciarlo, asi que ponemos un valor cualquiera
         boolean exit=false;
         LlistaUser llista = new LlistaUser(100);
 
@@ -151,9 +151,9 @@ public class RegUser{
         System.out.println(llista.toString());
     }
     private static void verProds(LlistaUser llista) {
-        llista.muestraProd(pedirAlias(llista));
+        System.out.print(llista.muestraProd(pedirAlias(llista)));
     }
     private static void verIntercamb(LlistaUser llista) {
-        llista.muestraIntercamb(pedirAlias(llista));
+        System.out.print(llista.muestraIntercamb(pedirAlias(llista)));
     }
 }
