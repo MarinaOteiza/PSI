@@ -1,4 +1,4 @@
-package Productes;
+package Peticiones;
 
 public class LlistaPeticiones {
     private Peticiones LlistaP[];
