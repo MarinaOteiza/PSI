@@ -1,11 +1,11 @@
 package dataUsr;
-
+import java.io.Serializable;
 /**
  *
  * @author Marina Oteiza
  *
  */
-public class LlistaUser {
+public class LlistaUser implements Serializable{
     private User[] llista;
     private int nElem;
 
