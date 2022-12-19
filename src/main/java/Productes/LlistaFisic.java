@@ -10,6 +10,7 @@ public class LlistaFisic extends Peticiones {
         numllist=0;
     }
 
+
     public void addF(Fisic f1){
         int i=0;
         boolean trobat=false;

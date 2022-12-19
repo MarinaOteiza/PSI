@@ -1,6 +1,7 @@
 package Productes;
 
 public class Fisic {
+
     private String peticio_interc;
     private String usuari_petic;
     private int valoracio_usuari;

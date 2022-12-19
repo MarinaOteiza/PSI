@@ -57,7 +57,7 @@ public class RegUser{
     private static void menu() {
         System.out.println("Que quieres hacer? ");
         System.out.println("1-Nuevo registro ");
-        System.out.println("2-Ver usuarios registados ");
+        System.out.println("2-Ver usuarios registrados ");
         System.out.println("2-Ver productos ");
         System.out.println("2-Ver intercambios ");
         System.out.println("5-Sumar producto ");
