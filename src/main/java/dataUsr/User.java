@@ -1,11 +1,11 @@
 package dataUsr;
-
+import java.io.Serializable;
 /**
  *
  * @author Marina Oteiza
  *
  */
-public class User {
+public class User implements Serializable{
     private String alias, correo;
     private String[] prod, intercamb;
     private int codiPost, nProd, nInter;

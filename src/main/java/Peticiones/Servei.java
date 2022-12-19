@@ -1,4 +1,4 @@
-package Productes;
+package Peticiones;
 
 public class Servei {
     private String peticio_interc;

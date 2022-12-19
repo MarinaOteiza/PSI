@@ -1,8 +1,7 @@
 package appUsr;
 
-        import dataUsr.*;
-        import java.io.*;
-        import java.util.Scanner;
+import dataUsr.*;
+import java.util.Scanner;
 
 /**
  *
@@ -10,17 +9,25 @@ package appUsr;
  *
  */
 public class RegUser{
-    public static void main(String[] args) throws IOException{
-
-        Scanner teclat = new Scanner(System.in);
-        int opcion;
+    static Scanner teclat = new Scanner(System.in);
+    public static void main(String[] args){
+        int opcion=10; //hay que iniciarlo, asi que ponemos un valor cualquiera
         boolean exit=false;
         LlistaUser llista = new LlistaUser(100);
 
         do{
             menu();
-            opcion = Integer.parseInt(teclat.nextLine());
-            switch(opcion) {
+            try{
+                opcion = Integer.parseInt(teclat.nextLine());
+                if(opcion<1 || opcion>9) throw new IndexOutOfBoundsException();
+            }catch(NumberFormatException e){
+                System.out.println("Introduce un valor numérico \nERROR: "+e+"\n\n");
+            }catch (IndexOutOfBoundsException e){
+                System.out.println("Ha introducido un valor fuera del rango (1-9) \nERROR:  "+e+"\n\n");
+            }
+
+            switch (opcion)
+            {
                 case 1:
                     nuevoUsuario(llista);
                     break;
@@ -47,10 +54,10 @@ public class RegUser{
                     break;
                 case 9:
                     System.out.println("Has salido");
-                    exit=true;
+                    exit = true;
                     break;
             }
-        }while(!exit);
+        }while (!exit);
         teclat.close();
     }
 
@@ -68,123 +75,85 @@ public class RegUser{
         System.out.print("\n\t\t\tIndica opcion:\n");
     }
 
-    private static void nuevoUsuario(LlistaUser llista) {
-        Scanner teclat = new Scanner(System.in);
-
-        String alias=null, correo;
-        int codiPost;
-        User nou;
-        //boolean llegit=false;
-
+    private static void nuevoUsuario(LlistaUser llista) { //Pedimos los datos para registrar a un nuevo usuario
         System.out.println("REGISTRO NUEVO ");
-//		if(llista.getnElem()==0) {
-//			while(!llegit) {
-//				try {
-//					System.out.println("Introduce un alias: ");
-//	        		alias=teclat.nextLine();
-//				}catch(NoSuchElementException e){
-//					System.out.println("no puedes introducir solo valores numéricos");
-//				}
-//				llegit=true;
-//				System.out.println("Usuario válido");
-//			}
-//
-//		}else {
-//			while(!llegit) {
-//
-//		        	do{
-//		        		try {System.out.println("Introduce un alias: ");
-//		        		alias=teclat.nextLine();
-//		        		}catch(NoSuchElementException e){
-//							System.out.println("no puedes introducir solo valores numéricos");
-//						}
-//		        		if(llista.usuarioRegistrado(alias))
-//		        			System.out.println("Lo sentimos pero ese nombre ya ha sido ocupado, "
-//		        				+ "prueba con otro");
-//		        		else {
-//		        			System.out.println("Usuario válido");
-//		        			llegit=true;
-//		        		}
-//		        	}while(llista.usuarioRegistrado(alias));
-//			}
-//		}
-
-
+        String alias=null, correo;
+        int codiPost=-1;
+        User nou;
 
         System.out.println("Introduce un alias: ");
-        alias=teclat.nextLine();
+        try{
+            alias=teclat.nextLine();
+            if(llista.usuarioRegistrado(alias)) throw new Exception(); //Evitamos que el usuario introduzca una alias repetido
+        }catch(Exception e){
+            System.out.println("Ese usuario ya ha sido ocupado\nIntroduzca otro usuario");
+        }
         System.out.println("CORREO ELECTRONICO: ");
         correo= teclat.nextLine();
-        System.out.println("CODIGO POSTAL: ");
-        codiPost=Integer.parseInt(teclat.nextLine());
+        System.out.println("CODIGO POSTAL: ");  //Nos aseguramos de que el código postal sea un valor numérico
+        do {
+            try {
+                codiPost = Integer.parseInt(teclat.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("El codigo postal debe ser un valor numerico\n" + "ERROR: " + e + "\nIntroduzca el codigo postal");
+            }
+        }while(codiPost==-1);
+
         nou=new User(alias, correo, codiPost);
         llista.nuevoUsr(nou);
-        System.out.println("Usuario guardado correctamente: "+llista.toString());
-        teclat.close();
-//
-//        if(usuarioRegistrado(nou))System.out.println("Usuario guardado correctamente");
-//
-
+        if(llista.usuarioRegistrado(alias))System.out.println("Usuario guardado correctamente");
     }
     private static void sumaProd(LlistaUser llista) {
-        Scanner teclat = new Scanner(System.in);
         String p;
         String a=pedirAlias(llista);
         System.out.println("Que producto quieres añadir? ");
         p=teclat.nextLine();
         if(llista.nuevoProducto(a, p)) System.out.println("Producto añadido correctamente");
-        teclat.close();
+        else System.out.println("El producto no se ha podido añadir");
     }
     private static void sumaIntercamb(LlistaUser llista) {
-        Scanner teclat = new Scanner(System.in);
         String i;
         String a=pedirAlias(llista);
         System.out.println("Que intercambio quieres añadir? ");
         i=teclat.nextLine();
         if(llista.nuevoIntercambio(a, i)) System.out.println("Producto añadido correctamente");
-        teclat.close();
+        else System.out.println("El intercambio no se ha podido añadir");
     }
     private static void menosProd(LlistaUser llista) {
-        Scanner teclat = new Scanner(System.in);
         String p;
         String a=pedirAlias(llista);
         System.out.println("Que intercambio quieres quitar? ");
         p=teclat.nextLine();
         if(llista.quitaProducto(a, p)==0) System.out.println("No se ha encontrado el producto");
         if(llista.quitaProducto(a, p)==1) System.out.println("Producto quitado correctamente");
-        teclat.close();
     }
     private static void menosIntercamb(LlistaUser llista) {
-        Scanner teclat = new Scanner(System.in);
         String i;
         String a=pedirAlias(llista);
         System.out.println("Que intercambio quieres quitar? ");
         i=teclat.nextLine();
         if(llista.quitaIntercambio(a, i)==0) System.out.println("No se ha encontrado el intercambio");
         if(llista.quitaIntercambio(a, i)==1) System.out.println("Intercambio quitado correctamente");
-        teclat.close();
     }
 
 
     private static String pedirAlias(LlistaUser llista) {
-        Scanner teclat = new Scanner(System.in);
         String a;
         do{
             System.out.println("Introduce un alias: ");
             a=teclat.nextLine();
-            if(!llista.usuarioRegistrado(a))System.out.println("Usuario no encontrado, vuelve "
-                    + "a intentarlo\n");
+            if(!llista.usuarioRegistrado(a)) System.out.println("Usuario no encontrado, compruebe que lo " +
+                    "haya escrito correctamente\n");
         }while(!llista.usuarioRegistrado(a));
-        teclat.close();
         return a;
     }
     private static void verUsers(LlistaUser llista) {
-        llista.toString();
+        System.out.println(llista.toString());
     }
     private static void verProds(LlistaUser llista) {
-        llista.muestraProd(pedirAlias(llista));
+        System.out.print(llista.muestraProd(pedirAlias(llista)));
     }
     private static void verIntercamb(LlistaUser llista) {
-        llista.muestraIntercamb(pedirAlias(llista));
+        System.out.print(llista.muestraIntercamb(pedirAlias(llista)));
     }
 }

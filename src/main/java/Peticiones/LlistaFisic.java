@@ -1,4 +1,4 @@
-package Productes;
+package Peticiones;
 
 public class LlistaFisic extends Peticiones {
     private Fisic LlistaF[];
